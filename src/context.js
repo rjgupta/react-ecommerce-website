@@ -8,12 +8,14 @@ const ProductContext = React.createContext();
 class ProductProvider extends Component {
   // constructor(props) {
   //   super(props);
-  //   this.tester = this.tester.bind(this);
+  //   // this.tester = this.tester.bind(this);
+  //   this.handleDetail = this.handleDetail.bind(this);
   // }
 
   state = {
     products: [],
-    detailProduct: detailProduct
+    detailProduct: detailProduct,
+    cart: []
   }
 
   componentDidMount() {
@@ -32,12 +34,42 @@ class ProductProvider extends Component {
     })
   }
 
-  handleDetail = () => {
-    console.log('hello from details');
+  // utility method that gets the item based on id.
+  getItem = (id) => {
+    const product = this.state.products.find( item => item.id === id);
+    return product;
   }
 
+  // deatils page based on the id
+  handleDetail = (id) => {
+    // console.log('hello from details');
+    const product = this.getItem(id);
+    this.setState( () => {
+      return {detailProduct: product}
+    })
+  }
+
+  // adds product to the cart 
   addToCart = (id) => {
-    console.log(`hello from add to cart ${id}`);
+    let tempProducts = [...this.state.products];
+    const index = tempProducts.indexOf(this.getItem(id));
+    const product = tempProducts[index];
+
+    // update values for the product that was added to the cart 
+    product.inCart = true;
+    product.count = 1;
+    const price = product.price;
+    product.total = price;
+
+    // change the values in the state 
+    this.setState( () => {
+      return { 
+        products: tempProducts, 
+        cart: [...this.state.cart, product] 
+      }
+    }, () => {
+      console.log(this.state)
+    })
   }
 
   // *** testing for reference issue of the products ***
@@ -60,7 +92,7 @@ class ProductProvider extends Component {
       // value can be an object too.
       <ProductContext.Provider value={{ 
         ...this.state, 
-        handleDetails: this.handleDetail,
+        handleDetail: this.handleDetail,
         addToCart: this.addToCart
       }}>
         {/* <button onClick={this.tester}>Test Button</button> */}
