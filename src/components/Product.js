@@ -32,7 +32,8 @@ export default class Product extends Component {
                   disabled={inCart ? true : false} 
                   onClick={ () => {
                     // console.log('product added to cart')
-                    value.addToCart(id)
+                    value.addToCart(id);
+                    value.openModal(id);
                   }} 
                 >
                   { inCart ? (

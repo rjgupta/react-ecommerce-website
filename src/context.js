@@ -15,7 +15,10 @@ class ProductProvider extends Component {
   state = {
     products: [],
     detailProduct: detailProduct,
-    cart: []
+    cart: [],
+    // modal
+    modalOpen: false,
+    modalProduct: detailProduct
   }
 
   componentDidMount() {
@@ -72,6 +75,20 @@ class ProductProvider extends Component {
     })
   }
 
+  // modal methods:
+  openModal = (id) => {
+    const product = this.getItem(id);
+    this.setState( () => {
+      return {modalProduct: product, modalOpen: true}
+    })
+  }
+
+  closeModal = () => {
+    this.setState(() => {
+      return {modalOpen: false}
+    })
+  }
+
   // *** testing for reference issue of the products ***
   // tester() {
   //   console.log('State product: ', this.state.products[0].inCart);
@@ -90,11 +107,15 @@ class ProductProvider extends Component {
   render() {
     return (
       // value can be an object too.
-      <ProductContext.Provider value={{ 
-        ...this.state, 
-        handleDetail: this.handleDetail,
-        addToCart: this.addToCart
-      }}>
+      <ProductContext.Provider 
+        value={{ 
+          ...this.state, 
+          handleDetail: this.handleDetail,
+          addToCart: this.addToCart,
+          openModal: this.openModal,
+          closeModal: this.closeModal
+        }}
+      >
         {/* <button onClick={this.tester}>Test Button</button> */}
         {this.props.children}
       </ProductContext.Provider>
