@@ -102,6 +102,7 @@ export const storeProducts = [
   }
 ];
 
+
 export const detailProduct = {
   id: 1,
   title: "Google Pixel - Black",
