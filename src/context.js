@@ -15,10 +15,14 @@ class ProductProvider extends Component {
   state = {
     products: [],
     detailProduct: detailProduct,
-    cart: [],
+    cart: storeProducts,
     // modal
     modalOpen: false,
-    modalProduct: detailProduct
+    modalProduct: detailProduct,
+    // cart
+    cartSubTotal: 0,
+    cartTax: 0,
+    cartTotal: 0
   }
 
   componentDidMount() {
@@ -89,6 +93,24 @@ class ProductProvider extends Component {
     })
   }
 
+  // cart methods 
+  increment = (id) => {
+    console.log('increment method');
+  }
+
+  decrement = (id) => {
+    console.log('decrement method');
+  }
+
+  removeItem = (id) => {
+    console.log('item removed, removeItem method');
+  }
+
+  clearCart = () => {
+    console.log('cart cleared, clearCart');
+  }
+
+
   // *** testing for reference issue of the products ***
   // tester() {
   //   console.log('State product: ', this.state.products[0].inCart);
@@ -113,7 +135,11 @@ class ProductProvider extends Component {
           handleDetail: this.handleDetail,
           addToCart: this.addToCart,
           openModal: this.openModal,
-          closeModal: this.closeModal
+          closeModal: this.closeModal,
+          increment: this.increment,
+          decrement: this.decrement,
+          removeItem: this.removeItem,
+          clearCart: this.clearCart
         }}
       >
         {/* <button onClick={this.tester}>Test Button</button> */}
