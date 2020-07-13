@@ -25,7 +25,7 @@ export default function CartItem({item, value}) {
               onClick={() => decrement(id)}>
               -
             </span>
-            <spam className='btn btn-black mx-1'>{count}</spam>
+            <span className='btn btn-black mx-1'>{count}</span>
             <span 
               className='btn btn-black mx-1' 
               onClick={() => increment(id)}>
